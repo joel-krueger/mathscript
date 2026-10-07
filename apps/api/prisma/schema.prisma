@@ -1,0 +1,22 @@
+// Prisma schema. The connection URL comes from prisma.config.ts (DATABASE_URL);
+// at runtime the client connects through the @prisma/adapter-pg driver adapter.
+
+generator client {
+  provider            = "prisma-client"
+  output              = "../src/generated/prisma"
+  moduleFormat        = "esm"
+  importFileExtension = "js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// Small key/value table for app-level metadata (schema info, feature notes).
+model AppMeta {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("app_meta")
+}
